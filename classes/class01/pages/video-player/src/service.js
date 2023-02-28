@@ -50,8 +50,14 @@ export default class Service {
       const upperLeft = prediction.annotations.leftEyeLower0
       const leftEAR = this.#getEAR(upperLeft, lowerLeft)
 
+      const blinkedLeft = leftEAR <= EAR_THRESHOLD;
+      const blinkedRight = rightEAR <= EAR_THRESHOLD;
+
+      if(blinkedLeft) console.log('Olho ESQUERDO piscado');
+      if(blinkedRight) console.log('Olho DIREITO piscado');
+      
       // True if the eye is closed
-      const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD
+      const blinked = blinkedLeft && blinkedRight
       if (!blinked) continue
       if(!shouldRun()) continue
 
